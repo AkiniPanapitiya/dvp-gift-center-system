@@ -1,0 +1,98 @@
+/* Custom styles for DVP Gift Center */
+
+.product-card {
+  transition: transform 0.2s;
+  height: 100%;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+.product-image {
+  height: 250px;
+  object-fit: cover;
+}
+
+.hero-section {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 4rem 0;
+}
+
+.admin-sidebar .nav-link {
+  padding: 0.75rem 1rem;
+  color: #6c757d;
+  border-radius: 0;
+}
+
+.admin-sidebar .nav-link.active {
+  background-color: #0d6efd;
+  color: white;
+}
+
+.admin-sidebar .nav-link:hover:not(.active) {
+  background-color: #f8f9fa;
+}
+
+.cart-summary {
+  position: sticky;
+  top: 20px;
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 2rem 0;
+  }
+  
+  .product-image {
+    height: 200px;
+  }
+}
+
+/* Loading animation */
+.loading-spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Card hover effects */
+.card-hover {
+  transition: box-shadow 0.15s ease-in-out;
+}
+
+.card-hover:hover {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+/* Footer styling */
+.footer {
+  background-color: #343a40;
+  color: white;
+  padding: 2rem 0 1rem;
+}
+
+.footer a {
+  color: #adb5bd;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  color: white;
+}
+
+/* Button customizations */
+.btn-gift {
+  background: linear-gradient(45deg, #ff6b6b, #ffd93d);
+  border: none;
+  color: white;
+}
+
+.btn-gift:hover {
+  background: linear-gradient(45deg, #ff5252, #ffcc02);
+  color: white;
+}
