@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Container, Row, Col, Card, Button, Form, InputGroup, Table, Badge, Alert } from 'react-bootstrap';
 import { FaSearch, FaBarcode, FaShoppingCart, FaReceipt } from 'react-icons/fa';
 import '../../styles/pos.css';
+import { printHtml } from '../../utils/print';
 
 const CashierDashboard = () => {
   const [products, setProducts] = useState([]);
@@ -229,14 +230,13 @@ const CashierDashboard = () => {
     }
   };
 
-  const printReceipt = (transactionData) => {
-    // Create a new window for receipt printing
-    const printWindow = window.open('', '_blank');
+  const printReceipt = async (transactionData) => {
     const receiptHtml = generateReceiptHtml(transactionData);
-    
-    printWindow.document.write(receiptHtml);
-    printWindow.document.close();
-    printWindow.print();
+    try {
+      await printHtml(receiptHtml, { mode: 'iframe' });
+    } catch (e) {
+      showAlert('Print failed: ' + e.message, 'danger');
+    }
   };
 
   const generateReceiptHtml = (transaction) => {

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Card, Table, Form, Button, InputGroup, Badge, Alert } from 'react-bootstrap';
 import { FaSearch, FaPrint } from 'react-icons/fa';
+import { printHtml } from '../../utils/print';
 
 const CashierTransactions = () => {
   const [transactions, setTransactions] = useState([]);
@@ -67,12 +68,9 @@ const CashierTransactions = () => {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (!res.ok) throw new Error('Failed to load receipt');
-      const { data } = await res.json();
-      const printWindow = window.open('', '_blank');
-      const html = generateReceiptHtml(data);
-      printWindow.document.write(html);
-      printWindow.document.close();
-      printWindow.print();
+  const { data } = await res.json();
+  const html = generateReceiptHtml(data);
+  await printHtml(html, { mode: 'iframe' });
     } catch (e) {
       showAlert(e.message, 'danger');
     }
