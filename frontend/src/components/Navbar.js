@@ -1,12 +1,12 @@
 import React from 'react';
 import { Navbar as BSNavbar, Nav, Container, Badge } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import { FiShoppingCart, FiUser, FiLogOut, FiSettings } from 'react-icons/fi';
+import { FiShoppingCart, FiUser, FiLogOut, FiSettings, FiList } from 'react-icons/fi';
 import { useAuth } from '../contexts/AuthContext';
 import { useCart } from '../contexts/CartContext';
 
 const Navbar = () => {
-  const { user, logout, isAuthenticated, isAdmin } = useAuth();
+  const { user, logout, isAuthenticated, isAdmin, isCashier } = useAuth();
   const { getCartItemCount } = useCart();
 
   return (
@@ -37,7 +37,25 @@ const Navbar = () => {
                   </LinkContainer>
                 )}
                 
-                {!isAdmin && (
+                {isCashier && (
+                  <>
+                    <LinkContainer to="/cashier/pos">
+                      <Nav.Link>
+                        <FiSettings className="me-1" />
+                        POS System
+                      </Nav.Link>
+                    </LinkContainer>
+                    <LinkContainer to="/cashier/transactions">
+                      <Nav.Link>
+                        <FiList className="me-1" />
+                        Bills
+                      </Nav.Link>
+                    </LinkContainer>
+                  </>
+                )}
+                
+                {/* Only show cart and orders for customers and admins, not cashiers */}
+                {!isCashier && (
                   <>
                     <LinkContainer to="/orders">
                       <Nav.Link>My Orders</Nav.Link>
@@ -54,15 +72,6 @@ const Navbar = () => {
                       </Nav.Link>
                     </LinkContainer>
                   </>
-                )}
-                
-                {isAdmin && (
-                  <LinkContainer to="/admin">
-                    <Nav.Link>
-                      <FiSettings className="me-1" />
-                      Admin Panel
-                    </Nav.Link>
-                  </LinkContainer>
                 )}
                 
                 <Nav.Link>

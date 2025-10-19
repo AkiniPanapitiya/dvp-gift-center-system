@@ -24,6 +24,13 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
     @Query("SELECT COUNT(t) + 1 FROM Transaction t WHERE DATE(t.transactionDate) = CURRENT_DATE")
     Long getNextBillSequenceForToday();
     
+    Long countByBillNumberStartingWith(String prefix);
+    
     @Query("SELECT t FROM Transaction t WHERE t.source = 'online_sale' AND t.customer.userId = :customerId ORDER BY t.transactionDate DESC")
     List<Transaction> findOnlineOrdersByCustomerId(@Param("customerId") Long customerId);
+
+    // POS-specific helpers
+    List<Transaction> findTop100BySourceOrderByTransactionDateDesc(String source);
+
+    List<Transaction> findBySourceAndBillNumberContainingIgnoreCaseOrderByTransactionDateDesc(String source, String billNumber);
 }

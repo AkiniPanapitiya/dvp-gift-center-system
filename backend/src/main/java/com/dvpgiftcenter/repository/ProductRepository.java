@@ -19,6 +19,10 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     
     List<Product> findByProductNameContainingIgnoreCaseAndIsActiveTrueOrderByProductName(String productName);
     
+    // Search by product name, code, or barcode for POS system
+    List<Product> findByProductNameContainingIgnoreCaseOrProductCodeContainingIgnoreCaseOrBarcodeContainingIgnoreCase(
+        String productName, String productCode, String barcode);
+    
     @Query("SELECT p FROM Product p WHERE p.isActive = true AND " +
            "(:categoryId IS NULL OR p.category.categoryId = :categoryId) AND " +
            "(:productName IS NULL OR LOWER(p.productName) LIKE LOWER(CONCAT('%', :productName, '%'))) AND " +

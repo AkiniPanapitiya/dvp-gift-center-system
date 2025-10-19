@@ -43,6 +43,8 @@ public interface OnlineProductRepository extends JpaRepository<OnlineProduct, Lo
            "WHERE p.productId = :productId")
     Optional<OnlineProduct> findByProductId(@Param("productId") Long productId);
     
+    Optional<OnlineProduct> findByProductProductId(Long productId);
+    
     @Query("SELECT op FROM OnlineProduct op " +
            "JOIN FETCH op.product p " +
            "LEFT JOIN FETCH p.category c " +

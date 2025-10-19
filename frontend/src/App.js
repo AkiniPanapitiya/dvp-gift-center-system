@@ -21,6 +21,8 @@ import Orders from './pages/Orders';
 import OrderDetail from './pages/OrderDetail';
 import AdminOrders from './pages/AdminOrders';
 import AdminTransactions from './pages/AdminTransactions';
+import CashierDashboard from './pages/cashier/CashierDashboard';
+import CashierTransactions from './pages/cashier/CashierTransactions';
 
 function App() {
   return (
@@ -57,6 +59,19 @@ function App() {
                 <Route path="/orders/:id" element={
                   <ProtectedRoute>
                     <OrderDetail />
+                  </ProtectedRoute>
+                } />
+                
+                {/* Cashier Routes */}
+                <Route path="/cashier" element={<Navigate to="/cashier/pos" replace />} />
+                <Route path="/cashier/pos" element={
+                  <ProtectedRoute requiredRole="cashier">
+                    <CashierDashboard />
+                  </ProtectedRoute>
+                } />
+                <Route path="/cashier/transactions" element={
+                  <ProtectedRoute requiredRole="cashier">
+                    <CashierTransactions />
                   </ProtectedRoute>
                 } />
                 
