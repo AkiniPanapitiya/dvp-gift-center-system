@@ -66,7 +66,7 @@ export const AuthProvider = ({ children }) => {
       // Set default Authorization header
       axios.defaults.headers.common['Authorization'] = `Bearer ${newToken}`;
 
-      return { success: true };
+      return { success: true, user: { username: decodedToken.sub, role: decodedToken.role, fullName: responseData.fullName, email: responseData.email } };
     } catch (error) {
       console.error('Login error:', error);
       return { 
@@ -109,7 +109,8 @@ export const AuthProvider = ({ children }) => {
     getAuthToken,
     loading,
     isAuthenticated: !!user,
-    isAdmin: user?.role === 'admin'
+    isAdmin: user?.role === 'admin',
+    isCashier: user?.role === 'cashier'
   };
 
   return (

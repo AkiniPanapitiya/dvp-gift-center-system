@@ -29,7 +29,18 @@ const Login = () => {
     const result = await login(formData.username, formData.password);
     
     if (result.success) {
-      navigate('/');
+      // Redirect based on user role
+      const userRole = result.user?.role || 'customer';
+      switch (userRole) {
+        case 'admin':
+          navigate('/admin/dashboard');
+          break;
+        case 'cashier':
+          navigate('/cashier/pos');
+          break;
+        default:
+          navigate('/');
+      }
     } else {
       setError(result.message);
     }
